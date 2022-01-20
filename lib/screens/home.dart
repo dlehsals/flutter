@@ -22,7 +22,8 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: EdgeInsets.only(left: 20, top: 30, bottom: 20),
             child: Container(
-                child: Text('메모하기',
+                padding: EdgeInsets.all(5),
+                child: Text('NotePad',
                     style: TextStyle(fontSize: 36, color: Colors.black)),
               alignment: Alignment.centerLeft,
             ),
@@ -65,6 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
             itemBuilder: (context, index) {
               Memo memo = (projectSnap.data as List)[index];
               return Container(
+                padding: EdgeInsets.all(13),
+                margin: EdgeInsets.all(15),
+                alignment: Alignment.center,
+                height: 80,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(
@@ -75,18 +80,31 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 child: Column(
                   children: <Widget>[
-                    Text(memo.title,
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold
-                      ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children:[
+                        Text(memo.title,
+                          style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        Text(memo.text),
+                      ]
                     ),
-                    Text(memo.text),
-                    Text("마지막으로 수정된 시간 : " + memo.createTime.split('.')[0],
-                      style: TextStyle(
-                        fontSize: 10
-                      ),
-                    )
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text("마지막으로 수정된 시간 : " + memo.createTime.split('.')[0],
+                          style: TextStyle(
+                              fontSize: 10,
+                          ),
+                          textAlign: TextAlign.right,
+                        )
+                      ],
+                    ),
                   ],
                 ),
               );
