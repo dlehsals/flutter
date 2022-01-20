@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
             FlatButton(
               child: Text('OK'),
               onPressed: () {
-                Navigator.pop(context, "OK");
+                Navigator.pop(context, "삭제");
                 setState(() {
                    deleteMemo(deleteId);
                 });
@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
             FlatButton(
               child: Text('Cancel'),
               onPressed: () {
-                Navigator.pop(context, "Cancel");
+                Navigator.pop(context, "취소");
                 deleteId = '';
               },
             ),
