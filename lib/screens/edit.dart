@@ -40,7 +40,7 @@ class EditPage extends StatelessWidget {
           ),
               Padding(padding: EdgeInsets.all(10)),
               TextField(
-                onChanged: (String title){this.text = text;},
+                onChanged: (String text){this.text = text;},
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 //obscureText: true,
