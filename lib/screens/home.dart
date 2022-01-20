@@ -14,6 +14,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String deleteId = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
               alignment: Alignment.centerLeft,
             ),
           ),
-          Expanded(child: memobuilder())
+          Expanded(child: memobuilder(context))
         ],
 
       ),
@@ -53,7 +54,44 @@ class _MyHomePageState extends State<MyHomePage> {
     DBHelper helper = DBHelper();
     return await helper.memos();
   }
-    Widget memobuilder() {
+
+  Future<void> deleteMemo(String id) async {
+    DBHelper helper = DBHelper();
+    await helper.deleteMemo(id);
+  }
+  void showAlertDialog(BuildContext context) async {
+    String result = await showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('메모삭제'),
+          content: Text("정말 메모를 삭제하시겠습니까?"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.pop(context, "OK");
+                setState(() {
+                   deleteMemo(deleteId);
+                });
+                deleteId = '';
+              },
+            ),
+            FlatButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.pop(context, "Cancel");
+                deleteId = '';
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+    Widget memobuilder(BuildContext parentcontext) {
       return FutureBuilder(
         builder: (context, projectSnap) {
           if ((projectSnap.data as List).length == 0) {
@@ -65,47 +103,54 @@ class _MyHomePageState extends State<MyHomePage> {
             itemCount: (projectSnap.data as List).length,
             itemBuilder: (context, index) {
               Memo memo = (projectSnap.data as List)[index];
-              return Container(
-                padding: EdgeInsets.all(13),
-                margin: EdgeInsets.all(15),
-                alignment: Alignment.center,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    color: Colors.amber,
-                    width: 1
+              return InkWell(
+                onTap: (){},
+                onLongPress: (){
+                  deleteId = memo.id;
+                   showAlertDialog(parentcontext);
+                },
+                child: Container(
+                  padding: EdgeInsets.all(13),
+                  margin: EdgeInsets.all(15),
+                  alignment: Alignment.center,
+                  height: 80,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                          color: Colors.amber,
+                          width: 1
+                      ),
+                      borderRadius: BorderRadius.circular(10)
                   ),
-                  borderRadius: BorderRadius.circular(10)
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children:[
-                        Text(memo.title,
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold
-                          ),
-                        ),
-                        Text(memo.text),
-                      ]
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text("마지막으로 수정된 시간 : " + memo.createTime.split('.')[0],
-                          style: TextStyle(
+                  child: Column(
+                    children: <Widget>[
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children:[
+                            Text(memo.title,
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold
+                              ),
+                            ),
+                            Text(memo.text),
+                          ]
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text("마지막으로 수정된 시간 : " + memo.createTime.split('.')[0],
+                            style: TextStyle(
                               fontSize: 10,
-                          ),
-                          textAlign: TextAlign.right,
-                        )
-                      ],
-                    ),
-                  ],
+                            ),
+                            textAlign: TextAlign.right,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
