@@ -23,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.only(left: 20, top: 30, bottom: 20),
             child: Container(
                 child: Text('메모하기',
-                    style: TextStyle(fontSize: 36, color: Colors.blue)),
+                    style: TextStyle(fontSize: 36, color: Colors.black)),
               alignment: Alignment.centerLeft,
             ),
           ),
@@ -64,12 +64,31 @@ class _MyHomePageState extends State<MyHomePage> {
             itemCount: (projectSnap.data as List).length,
             itemBuilder: (context, index) {
               Memo memo = (projectSnap.data as List)[index];
-              return Column(
-                children: <Widget>[
-                  Text(memo.title),
-                  Text(memo.text),
-                  Text(memo.createTime)
-                ],
+              return Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Colors.amber,
+                    width: 1
+                  ),
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child: Column(
+                  children: <Widget>[
+                    Text(memo.title,
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    Text(memo.text),
+                    Text("마지막으로 수정된 시간 : " + memo.createTime.split('.')[0],
+                      style: TextStyle(
+                        fontSize: 10
+                      ),
+                    )
+                  ],
+                ),
               );
             },
           );
