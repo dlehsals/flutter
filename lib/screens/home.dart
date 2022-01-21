@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'edit.dart';
 import 'package:memo/database/db.dart';
 import 'package:memo/database/memo.dart';
+import 'package:memo/screens/view.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -93,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     Widget memobuilder(BuildContext parentcontext) {
       return FutureBuilder(
-        builder: (context, projectSnap) {
+        builder: (ontext, projectSnap) {
           if ((projectSnap.data as List).length == 0) {
             return Container(
                 alignment: Alignment.center,
@@ -104,7 +105,11 @@ class _MyHomePageState extends State<MyHomePage> {
             itemBuilder: (context, index) {
               Memo memo = (projectSnap.data as List)[index];
               return InkWell(
-                onTap: (){},
+                onTap: (){
+                  Navigator.push(
+                      parentcontext, CupertinoPageRoute(builder: (context) => ViewPage(id : memo.id))
+                  );
+                },
                 onLongPress: (){
                   deleteId = memo.id;
                    showAlertDialog(parentcontext);
