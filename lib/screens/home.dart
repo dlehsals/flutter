@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'edit.dart';
+import 'write.dart';
 import 'package:memo/database/db.dart';
 import 'package:memo/database/memo.dart';
 import 'package:memo/screens/view.dart';
@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           Navigator.push(
               context, CupertinoPageRoute(
-            builder: (context) => EditPage(),
+            builder: (context) => WritePage(),
           ),
           ).then((value) => setState(() {}));
         },
@@ -138,8 +138,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold
                               ),
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            Text(memo.text),
+                            Text(memo.text, overflow: TextOverflow.ellipsis,),
                           ]
                       ),
                       Column(

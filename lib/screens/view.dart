@@ -46,9 +46,16 @@ class ViewPage extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(memo.title, style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),),
+                Container(height: 100,
+                  child: SingleChildScrollView(
+                    child:Text(memo.title,
+                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500))
+                  ),
+                ),
                 const Padding(padding: EdgeInsets.all(10)),
-                Expanded(child: Text(memo.text))
+                Expanded(child: SingleChildScrollView(
+                  child: Text(memo.text)),
+                )
               ],
             );
           }

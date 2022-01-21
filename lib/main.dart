@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/home.dart';
-import 'screens/edit.dart';
+import 'screens/write.dart';
 
 
 void main() {

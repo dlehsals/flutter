@@ -5,7 +5,7 @@ import 'package:crypto/crypto.dart';
 import 'dart:convert'; // for the utf8.encode method
 
 
-class EditPage extends StatelessWidget {
+class WritePage extends StatelessWidget {
   String title = '';
   String text = '';
   @override
