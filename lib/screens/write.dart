@@ -35,7 +35,7 @@ class WritePage extends StatelessWidget {
             //obscureText: true,
               decoration: InputDecoration(
               //border: OutlineInputBorder(),
-              hintText: '제목을 적어주세요.',
+              hintText: '제목',
             ),
           ),
               Padding(padding: EdgeInsets.all(10)),
@@ -46,7 +46,7 @@ class WritePage extends StatelessWidget {
                 //obscureText: true,
                 decoration: InputDecoration(
                   //border: OutlineInputBorder(),
-                  hintText: '내용을 적어주세요.',
+                  hintText: '내용',
                 ),
               ),
         ],
